@@ -27,25 +27,23 @@
       const data = Object.fromEntries(formData.entries());
 
       try {
-        const res = await fetch("/api/github/nda-request", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
+  const res = await fetch("/api/github/nda-request", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, institution, message, timestamp }),
+  });
 
-        if (res.redirected) {
-          window.location.href = res.url;
-        } else {
-          const result = await res.json();
-          if (res.ok) {
-            status.textContent = "Success!";
-          } else {
-            status.textContent = "Error: " + JSON.stringify(result);
-          }
-        }
-      } catch (err) {
-        status.textContent = "Request failed: " + err.message;
-      }
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    throw new Error("Expected JSON, got HTML or other");
+  }
+
+  const result = await res.json();
+  status.textContent = result.success ? "Success!" : `Error: ${JSON.stringify(result)}`;
+
+} catch (err) {
+  status.textContent = `Request failed: ${err.message}`;
+}
     });
   </script>
 </body>
