@@ -111,7 +111,18 @@
         <input type="checkbox" name="nda" class="mr-2"> Request NDA (auto-send after submission)
       </label>
       <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
-    </form>
+    <button type="button" onclick="window.location.href='KT-MetalDrug-NDA.pdf'" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Download NDA</button>
+      <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+          const nda = document.querySelector("input[name='nda']").checked;
+          if (nda) {
+            setTimeout(() => {
+              window.location.href = 'KT-MetalDrug-NDA.pdf';
+            }, 300);
+          }
+        });
+      </script>
+      </form>
   </section>
 
   <footer class="text-center p-6 border-t border-gray-800 text-gray-600 text-sm">
