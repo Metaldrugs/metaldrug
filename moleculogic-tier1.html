@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Moleculogic Tier 1 gives NDA-approved users access to ligand screening and SEI-lite compatibility scoring for MDC design." />
-  <title>Moleculogic Tier 1 | Ligand Screening</title>
+  <meta name="description" content="Moleculogic Tier 1: AI-guided MDC compatibility scoring and logic simulation. Requires NDA access for SEI-lite insights." />
+  <title>Moleculogic Tier 1 | MDC AI Discovery</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/ngl@2.0.0-dev.39/dist/ngl.js"></script>
 </head>
 <body class="bg-gray-950 text-gray-200 font-mono">
   <header class="p-8 border-b border-gray-800 text-center">
@@ -23,53 +24,78 @@
         <text x="300" y="225" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white">MetalDrug</text>
       </svg>
     </div>
-    <h1 class="text-4xl font-extrabold text-white tracking-wide">Tier 1: Scientific Sandbox</h1>
-    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">For NDA-approved users. Screen ligands against select metal ions. Estimate SEI compatibility. Guide MDC development.</p>
+    <h1 class="text-4xl font-extrabold text-white tracking-wide">Moleculogic Tier 1</h1>
+    <p class="text-gray-400 mt-4 max-w-3xl mx-auto text-lg">
+      Secure logic preview for MDC compatibility scoring. Requires NDA for full access to AI-generated reasoning.
+    </p>
   </header>
 
-  <section class="p-8 max-w-5xl mx-auto">
-    <form action="https://getform.io/f/YOUR-FORM-ENDPOINT" method="POST" class="space-y-6">
+  <section class="p-8 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-semibold text-white mb-4">Select Compound</h2>
+    <div class="grid md:grid-cols-2 gap-8">
       <div>
-        <label class="block text-white">Full Name</label>
-        <input name="name" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
-      </div>
-
-      <div>
-        <label class="block text-white">Institution or Affiliation</label>
-        <input name="institution" class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
-      </div>
-
-      <div>
-        <label class="block text-white">Email Address</label>
-        <input type="email" name="email" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
-      </div>
-
-      <div>
-        <label class="block text-white">Ligand Structure (e.g., SMILES, notes)</label>
-        <textarea name="ligand" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded h-24" placeholder="Paste ligand data..."></textarea>
-      </div>
-
-      <div>
-        <label class="block text-white">Select Coordination Metal</label>
-        <select name="metal" class="w-full p-2 bg-gray-900 border border-gray-700 rounded">
-          <option>Zn²⁺</option>
-          <option>Cu²⁺</option>
-          <option>Fe²⁺</option>
-          <option>Ga³⁺</option>
-          <option>Bi³⁺</option>
+        <label for="moleculeSelect" class="block text-white text-lg mb-2">Compound:</label>
+        <select id="moleculeSelect" class="w-full p-2 bg-gray-900 border border-gray-700 rounded text-white">
+          <option value="Cu-Histidine">Cu²⁺-Histidine</option>
+          <option value="Zn-Ivermectin">Zn²⁺-Ivermectin</option>
+          <option value="Ru-Doxorubicin">Ru⁴⁺-Doxorubicin</option>
+          <option value="Bi-Minocycline">Bi³⁺-Minocycline</option>
         </select>
+        <div id="moleculeSummary" class="mt-4 text-gray-300 text-sm"></div>
+        <div id="logicOutput" class="mt-4 text-green-400 font-semibold"></div>
       </div>
-
-      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">Run Screening</button>
-    </form>
-
+      <div>
+        <div id="viewport" style="width:100%; height:400px; background:#1f2937;"></div>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <p class="text-gray-400">For full MDC logic access, NDA submission is required.</p>
+      <a href="nda-review.html" class="inline-block mt-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">Request NDA Access</a>
+    </div>
     <div class="mt-10 text-center">
       <a href="moleculogic.html" class="text-blue-400 underline">&larr; Back to Moleculogic Overview</a>
     </div>
   </section>
 
   <footer class="text-center p-6 border-t border-gray-800 text-gray-600 text-sm mt-10">
+    <a href="index.html" class="text-blue-400 underline">&larr; Back to MDC Home</a><br/>
     &copy; 2025 Kunfirm Technologies. Moleculogic is a KT Biotech innovation.
   </footer>
+
+  <script>
+    const logicData = {
+      "Cu-Histidine": {
+        summary: `<p><strong>Cu²⁺-Histidine</strong></p><ul class='list-disc ml-5'><li>Application: Neuroinflammation</li><li>ROS-Responsive chelate with timed release</li><li>Predicted: 86% uptake in oxidative environments</li></ul>`,
+        logic: "SEI-lite predicts 92% compatibility for Cu²⁺-triggered inflammation regulation across microglial cells."
+      },
+      "Zn-Ivermectin": {
+        summary: `<p><strong>Zn²⁺-Ivermectin</strong></p><ul class='list-disc ml-5'><li>Application: Antiviral</li><li>Boosts cytoplasmic delivery and oral stability</li><li>Supports viral protein disassembly</li></ul>`,
+        logic: "SEI-lite suggests 88% efficacy score in disrupting viral capsid assembly in cytosolic environments."
+      },
+      "Ru-Doxorubicin": {
+        summary: `<p><strong>Ru⁴⁺-Doxorubicin</strong></p><ul class='list-disc ml-5'><li>Application: Oncology</li><li>Stable in blood pH, active in tumor microacidic states</li></ul>`,
+        logic: "SEI-lite logic rates this construct at 90% for tumor-specific activation with minimal systemic toxicity."
+      },
+      "Bi-Minocycline": {
+        summary: `<p><strong>Bi³⁺-Minocycline</strong></p><ul class='list-disc ml-5'><li>Application: CNS/Spinal Repair</li><li>Neuroregenerative metal coordination</li><li>Axonal growth pathway support</li></ul>`,
+        logic: "Projected 89% neurotrophic profile enhancement under SEI-tier stability matrix."
+      }
+    };
+
+    const summaryDiv = document.getElementById("moleculeSummary");
+    const logicDiv = document.getElementById("logicOutput");
+    const select = document.getElementById("moleculeSelect");
+    select.addEventListener("change", () => {
+      const val = select.value;
+      summaryDiv.innerHTML = logicData[val].summary;
+      logicDiv.innerText = logicData[val].logic;
+    });
+
+    // Initial load
+    select.dispatchEvent(new Event('change'));
+
+    const stage = new NGL.Stage("viewport");
+    stage.loadFile("https://files.rcsb.org/download/1CRN.pdb", { defaultRepresentation: true });
+  </script>
 </body>
 </html>
