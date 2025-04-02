@@ -1,17 +1,35 @@
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+import { Readable } from "stream";
+
+async function parseBody(req) {
+  const chunks = [];
+  for await (const chunk of req) {
+    chunks.push(chunk);
+  }
+  const rawBody = Buffer.concat(chunks).toString("utf-8");
+  return JSON.parse(rawBody);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { name, email, institution, message, timestamp } = req.body;
-
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-
   try {
-    const githubToken = process.env.GH_PAT_FOR_VERL_API; // or whatever you named it
-    const githubRepo = "Metaldrugs/metaldrug-review-api"; // Change if needed
+    const body = await parseBody(req);
+    const { name, email, institution, message, timestamp } = body;
+
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const githubToken = process.env.GH_PAT_FOR_VERL_API;
+    const githubRepo = "Metaldrugs/metaldrug-review-api";
     const eventType = "nda-review-request";
 
     const response = await fetch(`https://api.github.com/repos/${githubRepo}/dispatches`, {
