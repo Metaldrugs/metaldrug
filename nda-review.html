@@ -16,17 +16,13 @@
   <section class="p-6 max-w-2xl mx-auto">
     <form action="https://metaldrug-review-api.vercel.app/api/github/nda-request" method="POST" class="space-y-4">
       <input type="hidden" name="_redirect" value="https://metaldrug.com/KT-MetalDrug-NDA.pdf" />
-
       <input type="text" name="name" placeholder="Full Name" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
       <input type="email" name="email" placeholder="Email Address" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
       <input type="text" name="institution" placeholder="Institution or Organization" class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
-
       <textarea name="message" placeholder="Which publication or data point are you requesting access to?" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded h-32"></textarea>
-
       <label class="inline-flex items-center text-gray-400">
         <input type="checkbox" name="nda" class="mr-2" checked> I agree to receive the NDA by email.
       </label>
-
       <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Request Access</button>
     </form>
   </section>
