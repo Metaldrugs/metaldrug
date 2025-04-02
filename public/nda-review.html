@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>NDA Review Request</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Request NDA Review</title>
 </head>
 <body>
-  <h1>Request NDA Review</h1>
-  <form id="ndaForm">
-    <label>Name:<br><input type="text" name="name" required /></label><br>
-    <label>Email:<br><input type="email" name="email" required /></label><br>
-    <label>Institution:<br><input type="text" name="institution" /></label><br>
-    <label>Message:<br><textarea name="message" required></textarea></label><br>
+  <h2>Request NDA Review</h2>
+  <form id="ndaform">
+    <label>Name:<input type="text" name="name" required /></label><br />
+    <label>Email:<input type="email" name="email" required /></label><br />
+    <label>Institution:<input type="text" name="institution" /></label><br />
+    <label>Message:<textarea name="message" required></textarea></label><br />
     <button type="submit">Submit</button>
   </form>
 
   <div id="status"></div>
 
   <script>
-    const form = document.getElementById("ndaForm");
+    const form = document.getElementById("ndaform");
     const status = document.getElementById("status");
 
     form.addEventListener("submit", async (e) => {
@@ -24,7 +26,13 @@
       status.textContent = "Submitting...";
 
       const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+      const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        institution: formData.get("institution") || "N/A",
+        message: formData.get("message"),
+        timestamp: new Date().toISOString(),
+      };
 
       try {
         const res = await fetch("/api/github/nda-request", {
@@ -33,18 +41,20 @@
           body: JSON.stringify(data),
         });
 
-        if (res.redirected) {
-          window.location.href = res.url;
-        } else {
-          const result = await res.json();
-          if (res.ok) {
-            status.textContent = "Success!";
-          } else {
-            status.textContent = "Error: " + JSON.stringify(result);
-          }
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          throw new Error("Expected JSON, got something else");
         }
+
+        const result = await res.json();
+        if (res.ok) {
+          status.textContent = "✅ Request submitted successfully!";
+        } else {
+          status.textContent = `❌ Error: ${JSON.stringify(result)}`;
+        }
+
       } catch (err) {
-        status.textContent = "Request failed: " + err.message;
+        status.textContent = `Request failed: ${err.message}`;
       }
     });
   </script>
