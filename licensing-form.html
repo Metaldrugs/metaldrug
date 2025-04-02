@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Licensing Interest | MDC Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const compound = params.get("compound");
+      if (compound) {
+        document.getElementById("compound").value = compound;
+      }
+    };
+  </script>
+</head>
+<body class="bg-gray-950 text-gray-200 font-mono">
+  <header class="p-6 text-center border-b border-gray-800">
+    <h1 class="text-3xl font-bold text-white">Submit Licensing Interest</h1>
+    <p class="text-gray-400 mt-2">Complete this form to express interest in licensing a specific MDC compound.</p>
+  </header>
+
+  <section class="p-6 max-w-3xl mx-auto">
+    <form action="https://getform.io/f/your-form-endpoint" method="POST" class="space-y-4">
+      <label class="block">
+        <span class="text-gray-300">Full Name</span>
+        <input type="text" name="name" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      </label>
+
+      <label class="block">
+        <span class="text-gray-300">Email Address</span>
+        <input type="email" name="email" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      </label>
+
+      <label class="block">
+        <span class="text-gray-300">Institution / Company</span>
+        <input type="text" name="institution" class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      </label>
+
+      <label class="block">
+        <span class="text-gray-300">Compound of Interest</span>
+        <input type="text" id="compound" name="compound" readonly class="w-full p-2 bg-gray-800 border border-gray-700 rounded text-gray-400" />
+      </label>
+
+      <label class="block">
+        <span class="text-gray-300">Message / Intent</span>
+        <textarea name="message" rows="5" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded"></textarea>
+      </label>
+
+      <label class="inline-flex items-center text-gray-400">
+        <input type="checkbox" name="nda" class="mr-2"> Request NDA (auto-send after submission)
+      </label>
+
+      <div class="flex gap-4">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+        <a href="licensing-opportunities.html" class="text-blue-400 hover:underline self-center">← Back to Licensing Opportunities</a>
+      </div>
+    </form>
+  </section>
+
+  <footer class="text-center p-6 border-t border-gray-800 text-gray-600 text-sm mt-10">
+    &copy; 2025 Kunfirm Technologies. Licensing interest is non-binding and confidential.
+  </footer>
+</body>
+</html>
