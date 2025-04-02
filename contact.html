@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta name="description" content="Reach out to the MetalDrug team for research inquiries, licensing opportunities, or strategic collaborations. Secure contact form with NDA support." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | MetalDrug</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-200 font-mono">
+  <header class="p-6 text-center border-b border-gray-800">
+    <h1 class="text-3xl font-bold text-white">Contact MetalDrug</h1>
+    <p class="text-gray-400 mt-2">For partnerships, licensing, or scientific review requests</p>
+    <div class="mt-4">
+      <a href="index.html" class="text-blue-400 hover:underline">← Back to MDC Home</a>
+    </div>
+  </header>
+
+  <section class="p-6 max-w-2xl mx-auto">
+    <h2 class="text-2xl font-semibold text-white mb-4">Secure Contact Form</h2>
+    <form action="https://getform.io/f/bkkyvkrb" method="POST" class="space-y-4">
+      <input type="hidden" name="_redirect" value="https://metaldrug.com/KT-MetalDrug-NDA.pdf" />
+      <input type="text" name="name" placeholder="Full Name" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      <input type="text" name="organization" placeholder="Affiliation or Organization" class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      <input type="email" name="email" placeholder="Email Address" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      <textarea name="message" placeholder="Purpose of Inquiry" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded h-32"></textarea>
+      <label class="inline-flex items-center text-gray-400">
+        <input type="checkbox" name="nda" class="mr-2"> Request NDA (auto-send after submission)
+      </label>
+      <div class="flex space-x-4">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+        <button type="button" onclick="window.location.href='KT-MetalDrug-NDA.pdf'" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Download NDA</button>
+      </div>
+    </form>
+  </section>
+
+  <footer class="text-center p-6 border-t border-gray-800 text-gray-600 text-sm mt-10">
+    &copy; 2025 Kunfirm Technologies. All Rights Reserved. MDC Platform is a Kunfirm Biotech Initiative.
+    <div class="mt-2 space-x-4">
+      <a href="https://www.linkedin.com/company/metaldrug" target="_blank" class="hover:underline">LinkedIn</a>
+      <a href="mailto:info@metaldrug.com" class="hover:underline">Email</a>
+    </div>
+  </footer>
+</body>
+</html>
