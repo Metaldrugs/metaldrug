@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>NDA Review Request | MetalDrug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Submit NDA-protected requests to review MetalDrug publications and materials." />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-200 font-mono">
+  <header class="p-6 text-center border-b border-gray-800">
+    <h1 class="text-3xl font-bold text-white">Request NDA-Protected Publication Review</h1>
+    <p class="text-gray-400 mt-2">Use this form to securely submit a request to review MDC Platform data under NDA.</p>
+  </header>
+
+  <section class="p-6 max-w-2xl mx-auto">
+    <form action="https://getform.io/f/bkkyvkrb" method="POST" class="space-y-4">
+      <input type="hidden" name="_redirect" value="https://metaldrug.com/KT-MetalDrug-NDA.pdf" />
+      <input type="text" name="name" placeholder="Full Name" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      <input type="email" name="email" placeholder="Email Address" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      <input type="text" name="institution" placeholder="Institution or Organization" class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      <textarea name="message" placeholder="Which publication or data point are you requesting access to?" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded h-32"></textarea>
+      <label class="inline-flex items-center text-gray-400">
+        <input type="checkbox" name="nda" class="mr-2" checked> I agree to receive the NDA by email.
+      </label>
+      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Request Access</button>
+    </form>
+  </section>
+
+  <footer class="text-center p-6 border-t border-gray-800 text-gray-600 text-sm mt-10">
+    &copy; 2025 Kunfirm Technologies. All Rights Reserved. MDC Platform is a Kunfirm Biotech Initiative.
+    <div class="mt-2 space-x-4">
+      <a href="index.html" class="hover:underline text-blue-400">Home</a>
+      <a href="contact.html" class="hover:underline text-blue-400">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
