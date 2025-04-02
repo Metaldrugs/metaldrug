@@ -1,44 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <title>NDA Review Request | MetalDrug</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Submit NDA-protected requests to review MetalDrug publications and materials." />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-950 text-gray-200 font-mono">
-    <header class="p-6 text-center border-b border-gray-800">
-      <h1 class="text-3xl font-bold text-white">Request NDA-Protected Publication Review</h1>
-      <p class="text-gray-400 mt-2">Use this form to securely submit a request to review MDC Platform data under NDA.</p>
-    </header>
+<html>
+<head>
+  <title>NDA Review Request</title>
+</head>
+<body>
+  <h1>Request NDA Review</h1>
+  <form id="ndaForm">
+    <label>Name:<br><input type="text" name="name" required /></label><br>
+    <label>Email:<br><input type="email" name="email" required /></label><br>
+    <label>Institution:<br><input type="text" name="institution" /></label><br>
+    <label>Message:<br><textarea name="message" required></textarea></label><br>
+    <button type="submit">Submit</button>
+  </form>
 
-    <section class="p-6 max-w-2xl mx-auto">
-      <form action="https://metaldrug-review-api.vercel.app/api/github/nda-request" method="POST" class="space-y-4">
-        <input type="hidden" name="_redirect" value="https://metaldrug.com/KT-MetalDrug-NDA.pdf" />
+  <div id="status"></div>
 
-        <input type="text" name="name" placeholder="Your Full Name" required
-          class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+  <script>
+    const form = document.getElementById("ndaForm");
+    const status = document.getElementById("status");
 
-        <input type="email" name="email" placeholder="Email Address" required
-          class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.textContent = "Submitting...";
 
-        <input type="text" name="institution" placeholder="Institution or Organization"
-          class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
 
-        <textarea name="message" placeholder="What publication or data point are you requesting access to?" required
-          class="w-full p-2 bg-gray-900 border border-gray-700 rounded" rows="4"></textarea>
+      try {
+        const res = await fetch("/api/github/nda-request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
 
-        <label class="inline-flex items-center text-gray-400">
-          <input type="checkbox" name="nda" class="mr-2" checked required />
-          I agree to receive the NDA by email.
-        </label>
-
-        <button type="submit"
-          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full">
-          Request Access
-        </button>
-      </form>
-    </section>
-  </body>
+        if (res.redirected) {
+          window.location.href = res.url;
+        } else {
+          const result = await res.json();
+          if (res.ok) {
+            status.textContent = "Success!";
+          } else {
+            status.textContent = "Error: " + JSON.stringify(result);
+          }
+        }
+      } catch (err) {
+        status.textContent = "Request failed: " + err.message;
+      }
+    });
+  </script>
+</body>
 </html>
