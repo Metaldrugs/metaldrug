@@ -1,32 +1,45 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).send('Method Not Allowed');
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { name, email, institution } = req.body;
+  const { name, email, institution, message, timestamp } = req.body;
 
-  const ndaLink = "https://metaldrug.com/KT-MetalDrug-NDA.pdf";
-
-  const githubResponse = await fetch('https://api.github.com/repos/Metaldrugs/metaldrug-nda-submissions/dispatches', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/vnd.github+json',
-      'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      event_type: "nda_review_request",
-      client_payload: { name, email, institution }
-    }),
-  });
-
-  if (!githubResponse.ok) {
-    return res.status(500).json({ error: "GitHub dispatch failed" });
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: "Missing required fields" });
   }
 
-  return res.status(200).json({
-    message: "Review request received.",
-    nda: ndaLink
-  });
+  try {
+    const githubToken = process.env.GH_PAT_FOR_VERL_API; // or whatever you named it
+    const githubRepo = "Metaldrugs/metaldrug-review-api"; // Change if needed
+    const eventType = "nda-review-request";
+
+    const response = await fetch(`https://api.github.com/repos/${githubRepo}/dispatches`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${githubToken}`,
+        Accept: "application/vnd.github+json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        event_type: eventType,
+        client_payload: {
+          name,
+          email,
+          institution,
+          message,
+          timestamp: timestamp || new Date().toISOString(),
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      return res.status(response.status).json({ error: "Dispatch failed", details: error });
+    }
+
+    res.status(200).json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "Request failed", message: err.message });
+  }
 }
