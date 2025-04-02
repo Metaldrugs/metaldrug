@@ -1,40 +1,74 @@
-
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Moleculogic Tier 1 provides secure access to MDC ligand screening and SEI-guided modeling under NDA-based control." />
-  <title>Moleculogic Tier 1 | MDC Access</title>
+  <meta name="description" content="Moleculogic Tier 1 gives NDA-approved users access to ligand screening and SEI-lite compatibility scoring for MDC design." />
+  <title>Moleculogic Tier 1 | Ligand Screening</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-950 text-gray-200 font-mono">
-  <header class="p-6 text-center border-b border-gray-800">
-    <h1 class="text-3xl font-bold text-white">Moleculogic Tier 1: Scientific Sandbox</h1>
-    <p class="text-gray-400 mt-2 max-w-3xl mx-auto">Ligand screening and SEI-assisted compatibility modeling for Metal-Drug Complexes. NDA required for access.</p>
+  <header class="p-8 border-b border-gray-800 text-center">
+    <div class="flex justify-center items-center mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" class="w-64 h-auto">
+        <rect width="800" height="400" fill="transparent"/>
+        <g transform="translate(130, 115)">
+          <path d="M10,0 L150,86.6 L100,173.2 L0,173.2 L-50,86.6 L0,0 Z" fill="none" stroke="white" stroke-width="8"/>
+          <circle cx="50" cy="86.6" r="15" fill="white"/>
+          <ellipse cx="50" cy="86.6" rx="70" ry="25" fill="none" stroke="white" stroke-width="5" transform="rotate(30 50 86.6)"/>
+          <ellipse cx="50" cy="86.6" rx="70" ry="25" fill="none" stroke="white" stroke-width="5" transform="rotate(-30 50 86.6)"/>
+          <ellipse cx="50" cy="86.6" rx="70" ry="70" fill="none" stroke="white" stroke-width="5"/>
+          <circle cx="115" cy="50" r="8" fill="white"/>
+        </g>
+        <text x="300" y="225" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white">MetalDrug</text>
+      </svg>
+    </div>
+    <h1 class="text-4xl font-extrabold text-white tracking-wide">Tier 1: Scientific Sandbox</h1>
+    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">For NDA-approved users. Screen ligands against select metal ions. Estimate SEI compatibility. Guide MDC development.</p>
   </header>
 
-  <section class="p-6 max-w-4xl mx-auto">
-    <h2 class="text-2xl font-semibold text-white mb-4">Request Tier 1 Access</h2>
-    <form action="https://getform.io/f/bkkyvkrb" method="POST" class="space-y-4 bg-gray-900 p-6 rounded border border-gray-700">
-      <input type="hidden" name="_redirect" value="https://metaldrug.com/KT-MetalDrug-NDA.pdf" />
-      <input type="text" name="name" placeholder="Full Name" required class="w-full p-2 bg-gray-800 border border-gray-600 rounded" />
-      <input type="email" name="email" placeholder="Institutional Email" required class="w-full p-2 bg-gray-800 border border-gray-600 rounded" />
-      <textarea name="purpose" placeholder="Describe your intended use or area of research" required class="w-full p-2 bg-gray-800 border border-gray-600 rounded h-32"></textarea>
-      <label class="inline-flex items-center text-gray-400">
-        <input type="checkbox" name="nda" class="mr-2"> Confirm NDA required for access
-      </label>
-      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">Submit Access Request</button>
-    </form>
-    <p class="text-sm text-gray-400 mt-4">Submissions will receive the NDA download and a review process link. Access to Moleculogic Tier 1 will follow internal approval.</p>
-  </section>
+  <section class="p-8 max-w-5xl mx-auto">
+    <form action="https://getform.io/f/YOUR-FORM-ENDPOINT" method="POST" class="space-y-6">
+      <div>
+        <label class="block text-white">Full Name</label>
+        <input name="name" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      </div>
 
-  <section class="p-6 max-w-4xl mx-auto text-center">
-    <a href="moleculogic.html" class="text-blue-400 underline">&larr; Back to Moleculogic Overview</a>
+      <div>
+        <label class="block text-white">Institution or Affiliation</label>
+        <input name="institution" class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      </div>
+
+      <div>
+        <label class="block text-white">Email Address</label>
+        <input type="email" name="email" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded" />
+      </div>
+
+      <div>
+        <label class="block text-white">Ligand Structure (e.g., SMILES, notes)</label>
+        <textarea name="ligand" required class="w-full p-2 bg-gray-900 border border-gray-700 rounded h-24" placeholder="Paste ligand data..."></textarea>
+      </div>
+
+      <div>
+        <label class="block text-white">Select Coordination Metal</label>
+        <select name="metal" class="w-full p-2 bg-gray-900 border border-gray-700 rounded">
+          <option>Zn²⁺</option>
+          <option>Cu²⁺</option>
+          <option>Fe²⁺</option>
+          <option>Ga³⁺</option>
+          <option>Bi³⁺</option>
+        </select>
+      </div>
+
+      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">Run Screening</button>
+    </form>
+
+    <div class="mt-10 text-center">
+      <a href="moleculogic.html" class="text-blue-400 underline">&larr; Back to Moleculogic Overview</a>
+    </div>
   </section>
 
   <footer class="text-center p-6 border-t border-gray-800 text-gray-600 text-sm mt-10">
-    <a href="index.html" class="text-blue-400 underline">&larr; Back to MDC Home</a><br/>
     &copy; 2025 Kunfirm Technologies. Moleculogic is a KT Biotech innovation.
   </footer>
 </body>
